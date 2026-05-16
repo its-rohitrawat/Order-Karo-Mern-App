@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server.js",
+    "start": "node server.js",
     "seed": "node --experimental-vm-modules src/scripts/seed.js"
   },
   "keywords": [],

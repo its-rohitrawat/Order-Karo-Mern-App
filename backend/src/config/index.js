@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Load env from every place people commonly put it; later paths override earlier (backend/.env wins).
 const envPaths = [
@@ -16,9 +17,14 @@ for (const envPath of envPaths) {
     dotenv.config({ path: envPath, override: true, quiet: true });
   }
 }
-
+// dotenv.config()
 export const PORT = process.env.PORT;
-export const MONGODB_URL = process.env.MONGODB_URL;
+export const MONGODB_URL = (
+  process.env.MONGODB_URL ||
+  process.env.MONGO_URI ||
+  process.env.DATABASE_URL ||
+  ""
+).trim();
 
 export const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
@@ -40,4 +46,7 @@ export const GROQ_API_KEY = (
 ).trim();
 /** Groq model id — see https://console.groq.com/docs/models */
 export const GROQ_MODEL =
-  process.env.GROQ_MODEL?.trim() || "llama-3.3-70b-versatile";
+process.env.GROQ_MODEL?.trim() || "llama-3.3-70b-versatile";
+
+// console.log("MONGODB_URL:", process.env.MONGODB_URL);
+// console.log("MONGO_URI:", process.env.MONGO_URI);
